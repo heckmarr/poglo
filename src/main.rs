@@ -46,6 +46,16 @@ use std::net::TcpListener;
 
 
 fn main() {
+    let list = vec![1, 2, 3];
+    println!("Before defining closure {:?}", list);
+
+    let only_borrows = || println!("From closure {:?}", list);
+
+    println!("Before calling closure {:?}", list);
+    only_borrows();
+    println!("After calling closure {:?}", list);
+
+
         //let listener = TcpListener::bind("127.0.0.1:4001").unwrap();
         //for stream in listener.incoming() {
         //    println!("hallo {:?}", stream);
@@ -56,7 +66,7 @@ fn main() {
             shirts: vec![ShirtColor::Blue, ShirtColor::Red, ShirtColor::Red],
         };
 
-        let user_pref1 = Some(ShirtColor::Bluex);
+        let user_pref1 = Some(ShirtColor::Blue);
         let giveaway1 = store.giveaway(user_pref1);
         println!(
             "The user with pref1 {:?} gets {:?}", user_pref1, giveaway1
