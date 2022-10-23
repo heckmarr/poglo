@@ -1,6 +1,6 @@
 use gtk;
 use gtk::prelude::*;
-use gtk::{Application, ApplicationWindow, Builder, Dialog, StyleContext, CssProvider};
+use gtk::{Application, ApplicationWindow, Builder, Widget, Dialog, StyleContext, CssProvider};
 
 
 fn main() {
@@ -24,12 +24,10 @@ fn build_ui(application: &gtk::Application) {
         window.set_application(Some(application));
         let style = window.style_context();
         let sheet = CssProvider::new();
-
-        style.add_provider(&sheet, 0);
-
-        CssProvider::load_from_path(&sheet, "../glade/style.css").expect("Couldn't load style sheet.");
+        CssProvider::load_from_path(&sheet, "../glade/style.css").expect("Error loading stylesheet.");
 //        let style = CssProviderExt::load_from_path("../glade/style.css");
 
+        style.add_provider(&sheet, 0);
 
 
         window.show_all();
