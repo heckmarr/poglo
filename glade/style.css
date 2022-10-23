@@ -8,6 +8,9 @@ box {
     background-color: rgba(20, 200, 20, .5);
 }
 button {
+    font-size: 16;
+    font-family: Courier New;
+    color: Black;
     background-color: red;
 }
 #connection {
