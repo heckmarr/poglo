@@ -22,12 +22,13 @@ fn build_ui(application: &gtk::Application) {
 
         let window: Dialog = builder.object("login").expect("Couldn't initialize login window.");
         window.set_application(Some(application));
-        let style = StyleContext::new();
+        let style = window.style_context();
         let sheet = CssProvider::new();
 
-        CssProvider::load_from_path(&sheet, "../glade/style.css");
+        style.add_provider(&sheet, 0);
+
+        CssProvider::load_from_path(&sheet, "../glade/style.css").expect("Couldn't load style sheet.");
 //        let style = CssProviderExt::load_from_path("../glade/style.css");
-        style.add_provider(&sheet, 1);
 
 
 

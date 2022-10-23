@@ -1,3 +1,15 @@
-Dialog {
-    background-image: linear-gradient(to bottom right, rgba(200, 200, 10, 1), rgba(200, 200, 10, 0));
+box {
+    background-image: linear-gradient(to bottom right, rgba(20, 200, 10, 1), rgba(20, 200, 10, 0.1));
+}
+#exitModal {
+    background-color: rgba(200, 20, 200, .5);
+}
+#connection {
+    background-color: rgba(20, 200, 20, .5);
+}
+button {
+    background-color: red;
+}
+#connection {
+    background-color: green;
 }
