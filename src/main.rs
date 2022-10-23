@@ -1,6 +1,7 @@
 use gtk;
 use gtk::prelude::*;
-use gtk::{Application, ApplicationWindow, Builder, Widget, Dialog, StyleContext, CssProvider};
+use gdk;
+use gtk::{Button, Builder, Widget, Dialog, StyleContext, CssProvider};
 
 
 fn main() {
@@ -20,15 +21,15 @@ fn main() {
 fn build_ui(application: &gtk::Application) {
         let builder = Builder::from_string(include_str!("../glade/login-modal.ui"));
 
-        let window: Dialog = builder.object("login").expect("Couldn't initialize login window.");
+        let window: Dialog = builder.object::<Dialog>("login").expect("Couldn't initialize login window.");
         window.set_application(Some(application));
-        let style = window.style_context();
-        let sheet = CssProvider::new();
-        CssProvider::load_from_path(&sheet, "../glade/style.css").expect("Error loading stylesheet.");
-//        let style = CssProviderExt::load_from_path("../glade/style.css");
+        //let butt: Button = builder.object::<Button>("exit-modal").expect("Couldn't get button widget");
+        let provider = CssProvider::new();
+        let style = include_bytes!("../glade/style.css");
+        provider.load_from_data(style).expect("Failed loading style data.");
 
-        style.add_provider(&sheet, 0);
-
+        gtk::StyleContext::add_provider_for_screen(&gdk::Screen::default().expect("Failed initializing gdk."),
+        &provider, gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,);
 
         window.show_all();
 
