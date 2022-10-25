@@ -2,7 +2,7 @@ use gtk;
 use gtk::prelude::*;
 use gdk;
 use gtk::{Button, Builder, Widget, Dialog, StyleContext, CssProvider, ApplicationWindow};
-
+use cairo;
 
 fn main() {
 
@@ -10,6 +10,9 @@ fn main() {
     );
 
     application.connect_activate(build_ui);
+
+    let surface = cairo::ImageSurface::create(cairo::Format::ARgb32, 200, 200).expect("Couldn't initialize cairo surface.");
+    let cctx = cairo::Context::new(surface);
 
     application.run();
 
