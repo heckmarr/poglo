@@ -2,7 +2,7 @@ use gtk;
 use gtk::prelude::*;
 use gdk;
 use poglo::ThreadPool;
-use gtk::{Button, Builder, Widget, Dialog, StyleContext, CssProvider, ApplicationWindow};
+use gtk::{Button, Builder, Entry, Grid, Widget, Box, Dialog, StyleContext, CssProvider, ApplicationWindow};
 use std::net::{TcpListener, TcpStream};
 use std::thread;
 use std::io::prelude::*;
@@ -17,18 +17,22 @@ fn main() {
 
 
     let pool = ThreadPool::new(4);
-    //application.run();
+
     let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
     println!("Bound!");
+    pool.execute(move || -> (){
     for stream in listener.incoming() {
             let stream = stream.unwrap();
 
             println!("Connection established!");
-            pool.execute(|| -> (){
+            //pool.execute(|| -> (){
                 handle_connection(stream);
 
-            });
+            //});
     }
+    });
+
+    application.run();
 
 }
 
@@ -60,6 +64,20 @@ fn build_ui(application: &gtk::Application) {
         let provider = CssProvider::new();
         let style = include_bytes!("../glade/style.css");
         provider.load_from_data(style).expect("Failed loading style data.");
+
+        let entry_0: Entry = builder.object::<Entry>("entry_0").expect("Couldn't get first entry.");
+
+        let entry_box: Box = builder.object::<Box>("row_1").expect("Couldn't find the box!.");
+
+        entry_0.connect_activate(move |entry_0| -> () {
+            let text = entry_0.text();
+
+            let new_entry: Entry = Entry::new();
+            new_entry.set_text(&text);
+            entry_box.pack_end(&new_entry, false, false, 0);
+            entry_0.set_text("{}");
+            entry_box.show_all();
+        });
 
         butt.connect_clicked(|_| -> () {
             println!("Booton!");
