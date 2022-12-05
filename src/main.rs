@@ -65,17 +65,21 @@ fn build_ui(application: &gtk::Application) {
         let style = include_bytes!("../glade/style.css");
         provider.load_from_data(style).expect("Failed loading style data.");
 
-        let entry_0: Entry = builder.object::<Entry>("entry_0").expect("Couldn't get first entry.");
+        let entry_0: Entry = Entry::new();
+
+        //let entry_0: Entry = builder.object::<Entry>("entry_0").expect("Couldn't get first entry.");
 
         let entry_box: Box = builder.object::<Box>("row_1").expect("Couldn't find the box!.");
+        entry_0.set_placeholder_text(Some("Enter your message..."));
+        entry_box.pack_end(&entry_0, false, false, 0);
 
         entry_0.connect_activate(move |entry_0| -> () {
             let text = entry_0.text();
 
             let new_entry: Entry = Entry::new();
             new_entry.set_text(&text);
-            entry_box.pack_end(&new_entry, false, false, 0);
-            entry_0.set_text("{}");
+            entry_box.pack_start(&new_entry, false, false, 0);
+            entry_0.set_text("");
             entry_box.show_all();
         });
 
