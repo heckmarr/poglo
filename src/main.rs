@@ -2,7 +2,7 @@ use gtk;
 use gtk::prelude::*;
 use gdk;
 use poglo::ThreadPool;
-use gtk::{Button, Builder, Entry, Grid, Widget, Box, Dialog, StyleContext, CssProvider, ApplicationWindow};
+use gtk::{Button, Builder, Entry, Grid, Widget, Box, Adjustment, Dialog, StyleContext, CssProvider, ApplicationWindow, ScrolledWindow};
 use std::net::{TcpListener, TcpStream};
 use std::thread;
 use std::io::prelude::*;
@@ -65,9 +65,9 @@ fn build_ui(application: &gtk::Application) {
         let style = include_bytes!("../glade/style.css");
         provider.load_from_data(style).expect("Failed loading style data.");
 
-        let entry_0: Entry = Entry::new();
+        //let entry_0: Entry = Entry::new();
 
-        //let entry_0: Entry = builder.object::<Entry>("entry_0").expect("Couldn't get first entry.");
+        let entry_0: Entry = builder.object::<Entry>("entry_0").expect("Couldn't get first entry.");
 
         let entry_box: Box = builder.object::<Box>("row_1").expect("Couldn't find the box!.");
         entry_0.set_placeholder_text(Some("Enter your message..."));
@@ -76,11 +76,16 @@ fn build_ui(application: &gtk::Application) {
         entry_0.connect_activate(move |entry_0| -> () {
             let text = entry_0.text();
 
+
+
             let new_entry: Entry = Entry::new();
             new_entry.set_text(&text);
             entry_box.pack_start(&new_entry, false, false, 0);
             entry_0.set_text("");
             entry_box.show_all();
+            let scrolled_window: ScrolledWindow = builder.object::<ScrolledWindow>("scrolling_window").expect("Couldn't get the scrolled window!");
+            let vadje: Adjustment = Adjustment::new(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+            scrolled_window.set_vadjustment(Some(&vadje));
         });
 
         butt.connect_clicked(|_| -> () {
