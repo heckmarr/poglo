@@ -238,6 +238,7 @@
           <object class="GtkScrolledWindow" id="scrolling_window">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
+            <property name="window-placement">bottom-left</property>
             <property name="shadow-type">in</property>
             <property name="min-content-height">100</property>
             <property name="max-content-height">250</property>

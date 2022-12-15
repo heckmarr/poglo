@@ -84,8 +84,11 @@ fn build_ui(application: &gtk::Application) {
             entry_0.set_text("");
             entry_box.show_all();
             let scrolled_window: ScrolledWindow = builder.object::<ScrolledWindow>("scrolling_window").expect("Couldn't get the scrolled window!");
-            let vadje: Adjustment = Adjustment::new(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+            let vadje: Adjustment = scrolled_window.vadjustment();
+            println!("{:?}",vadje.upper());
+            let vadje: Adjustment = Adjustment::new(vadje.upper(), vadje.lower(), vadje.upper(), vadje.step_increment(), vadje.page_increment(), vadje.page_size());
             scrolled_window.set_vadjustment(Some(&vadje));
+            scrolled_window.show_all();
         });
 
         butt.connect_clicked(|_| -> () {
