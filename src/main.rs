@@ -80,15 +80,18 @@ fn build_ui(application: &gtk::Application) {
 
             let new_entry: Entry = Entry::new();
             new_entry.set_text(&text);
-            entry_box.pack_start(&new_entry, false, false, 0);
-            entry_0.set_text("");
+            entry_box.pack_start(&new_entry, true, true, 0);
+            new_entry.show();
+            {
+                entry_0.set_text("");
+                let scrolled_window: ScrolledWindow = builder.object::<ScrolledWindow>("scrolling_window").expect("Couldn't get the scrolled window!");
+                let vadje: Adjustment = scrolled_window.vadjustment();
+                println!("{:?}",vadje.upper());
+                let vaadje: Adjustment = Adjustment::new(vadje.step_increment()+vadje.upper(), vadje.lower(), vadje.upper(), vadje.step_increment(), vadje.page_increment(), vadje.page_size());
+                scrolled_window.set_vadjustment(Some(&vaadje));
+                scrolled_window.show_all();
+            }
             entry_box.show_all();
-            let scrolled_window: ScrolledWindow = builder.object::<ScrolledWindow>("scrolling_window").expect("Couldn't get the scrolled window!");
-            let vadje: Adjustment = scrolled_window.vadjustment();
-            println!("{:?}",vadje.upper());
-            let vadje: Adjustment = Adjustment::new(vadje.upper(), vadje.lower(), vadje.upper(), vadje.step_increment(), vadje.page_increment(), vadje.page_size());
-            scrolled_window.set_vadjustment(Some(&vadje));
-            scrolled_window.show_all();
         });
 
         butt.connect_clicked(|_| -> () {
