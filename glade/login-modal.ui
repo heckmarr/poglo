@@ -142,7 +142,6 @@
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="orientation">vertical</property>
-        <property name="homogeneous">True</property>
         <child>
           <object class="GtkScrolledWindow" id="scrolling_window">
             <property name="visible">True</property>
