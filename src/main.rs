@@ -103,7 +103,7 @@ fn build_ui(application: &gtk::Application) {
         });
 
         gtk::StyleContext::add_provider_for_screen(&gdk::Screen::default().expect("Failed initializing gdk."),
-        &provider, gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,);
+        &provider, gtk::STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         window.show_all();
 
