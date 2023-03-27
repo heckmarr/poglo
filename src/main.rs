@@ -60,7 +60,7 @@ fn build_ui(application: &gtk::Application) {
         main_window.set_application(Some(application));
 
         let jackon: Button = builder.object::<Button>("connection").expect("Couldnd't get login button widget.");
-        let butt: Button = builder.object::<Button>("exit-modal").expect("Couldn't get exit button widget");
+        
         let provider = CssProvider::new();
         let style = include_bytes!("../glade/style.css");
         provider.load_from_data(style).expect("Failed loading style data.");
@@ -72,6 +72,8 @@ fn build_ui(application: &gtk::Application) {
         let entry_box: Box = builder.object::<Box>("row_1").expect("Couldn't find the box!.");
         entry_0.set_placeholder_text(Some("Enter your message..."));
         entry_box.pack_end(&entry_0, false, false, 0);
+
+        window.show_all();
 
         entry_0.connect_activate(move |entry_0| -> () {
             let text = entry_0.text();
@@ -93,15 +95,15 @@ fn build_ui(application: &gtk::Application) {
             }
             entry_box.show_all();
         });
-        window.show_all();
 
+        window.show_all();
         //Set the exit button to close the application
         //and gracefully shut down the program
         jackon.connect_clicked(move |_| -> () {
             window.close();
             main_window.show_all();
         });
-
+        
         gtk::StyleContext::add_provider_for_screen(&gdk::Screen::default().expect("Failed initializing gdk."),
         &provider, gtk::STYLE_PROVIDER_PRIORITY_APPLICATION);
 
