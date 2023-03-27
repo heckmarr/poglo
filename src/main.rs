@@ -93,20 +93,19 @@ fn build_ui(application: &gtk::Application) {
             }
             entry_box.show_all();
         });
+        window.show_all();
 
-        butt.connect_clicked(|_| -> () {
-            println!("Booton!");
-        });
-
+        //Set the exit button to close the application
+        //and gracefully shut down the program
         jackon.connect_clicked(move |_| -> () {
+            window.close();
             main_window.show_all();
         });
 
         gtk::StyleContext::add_provider_for_screen(&gdk::Screen::default().expect("Failed initializing gdk."),
         &provider, gtk::STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-        window.show_all();
-
+        
 
 
 }
