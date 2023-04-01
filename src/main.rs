@@ -59,7 +59,7 @@ fn build_ui(application: &gtk::Application) {
         window.set_application(Some(application));
         main_window.set_application(Some(application));
 
-        let jackon: Button = builder.object::<Button>("connection").expect("Couldnd't get login button widget.");
+        let jackon: Button = builder.object::<Button>("connection").expect("Couldn't get login button widget.");
         
         let provider = CssProvider::new();
         let style = include_bytes!("../glade/style.css");
